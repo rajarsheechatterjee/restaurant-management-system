@@ -1,0 +1,8 @@
+<%- include("./partials/header") %>
+<div class="container">
+<% orders.forEach(function(order){ %>
+        <li><%= order.name %>, <%= order.mobile_no %>,<%= order.address %></li>
+
+<% }); %>
+</div>
+<%- include("./partials/footer") %>

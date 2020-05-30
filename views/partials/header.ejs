@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Food Ordering App</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/">Food Ordering App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a href="/orders/new" class="nav-link">New Order</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+              <% if(!currentUser){ %>
+                  <li class="nav-item">
+                    <a href="/login" class="nav-link">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/register" class="nav-link">Sign Up</a>
+                  </li>
+              <% } else { %>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">Signed In As <%= currentUser.username %></a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                  </li>
+              <% } %>
+          </ul>
+        </div>
+      </nav>

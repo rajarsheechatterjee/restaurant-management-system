@@ -1,0 +1,43 @@
+<%- include("./partials/header") %>
+
+<h1 style="text-align: center">Enter Order & Delievery Details</h1>
+<div style="width: 30%; margin: 25px auto;">
+
+        <form action="/orders" method="POST">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Food Item</label>
+            <select class="form-control" id="select-form" name="food_id">
+                <% items.forEach(function(item){ %>
+                <option value="<%= item.id %>"><%= item.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Quantity</label>
+            <select class="form-control" id="select-form" name="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Enter Your Name</label>
+            <input id="name" class="form-control" type="text" name="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="name">Enter Your Mobile Number</label>
+            <input id="name" class="form-control" type="text" name="mobile_no" placeholder="Mobile No.">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Enter Your Address</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address"  placeholder="Delievery Address"></textarea>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Proceed">
+        </div>
+    </form>
+</div>
+
+<%- include("./partials/footer") %>
