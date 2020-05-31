@@ -1,8 +1,29 @@
 <%- include("./partials/header") %>
-<div class="container">
-<% orders.forEach(function(order){ %>
-        <li><%= order.name %>, <%= order.mobile_no %>,<%= order.address %></li>
 
-<% }); %>
+<div class="container">
+    <h2 class="mt-3 mb-4">Your Previous Orders</h2>
+    <div class="row">
+        <% orders.forEach(function(order){ %>
+        <div class="col md-3">
+            <div class="card mb-4" style="width: 18rem;">
+                <img class="card-img-top" style="height: 180px;" src="<%= order.image_url %>" alt="Food Item Image">
+                <div class="card-body">
+                  <h5 class="card-title"><%= order.item_name %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><%= order.placed_at.toDateString() %> at <%= order.placed_at.toTimeString().substring(0,8) %></h6>
+                  <p class="card-text">
+                      <h6 style="display: inline;">Total Amount:</h6> Rs. <%= order.quantity * order.price %> <br>
+                      <h6 style="display: inline;">Quantity:</h6> <%= order.quantity %> <br>
+                      <h6 style="display: inline;">Name:</h6> <%= order.name %> <br>
+                      <h6 style="display: inline;">Mobile No:</h6> <%= order.mobile_no %> <br>
+                      <h6 style="display: inline;">Address:</h6> <%= order.address %> <br>
+                      <h6 style="display: inline;">Mode Of Payment:</h6> <%= order.payment %> <br>
+                    </p>
+                  <a href="/menu" class="card-link">Go Check The Menu</a> <br>
+                  <a href="/orders/new" class="card-link">Place Another Order</a>
+                </div>
+              </div>
+        </div>
+        <% }); %>
+    </div>
 </div>
 <%- include("./partials/footer") %>

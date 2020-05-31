@@ -32,6 +32,10 @@ app.use(flash());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.signupMessage = req.flash('signupMessage');
+    res.locals.loginMessage = req.flash('loginMessage');
+    res.locals.success = req.flash('success');
     next();
 });
 
@@ -129,21 +133,18 @@ app.get("/menu", (req, res) => {
     });
 });
 
-// app.get('/orders', (req, res) => {
-//     const q = "SELECT * FROM food_items;";
-//     connection.query(q, function(err, results) {
-//         if (err) throw err;
-//         res.render("order", { items: results });
-//     });
-
-// });
+// Previous Orders Route
 
 app.get('/orders', isloggedin,(req, res) => {
-    const q = "SELECT * FROM order_details;";
+    // const q = 'SELECT order_details.payment, food_items.item_name, food_items.image_url, order_details.name, order_details.quantity,order_details.mobile_no, order_details.address, order_details.placed_at FROM food_items INNER JOIN order_details ON food_items.id = order_details.food_id;';
+    const q = "SELECT f.item_name, f.image_url, f.price, o.quantity, o.name, o.payment, o.address, o.placed_at, o.mobile_no FROM order_details AS o INNER JOIN food_items AS f ON o.food_id = f.id INNER JOIN users AS u ON o.user_id = u.id WHERE u.id =" + req.user.id + ";";
     connection.query(q, function(err, results) {
         if (err) throw err;
         res.render("orders", { orders: results });
-    });})
+    });
+});
+
+// New Order Form
 
 app.get('/orders/new', isloggedin,(req, res) => {
     const q = "SELECT * FROM food_items;";
@@ -153,50 +154,15 @@ app.get('/orders/new', isloggedin,(req, res) => {
     });
 });
 
+// New Order Route
+
 app.post('/orders', isloggedin,(req, res) => {
-    var newOrder = {food_id: req.body.food_id, quantity : req.body.quantity, name: req.body.name, mobile_no: req.body.mobile_no, address: req.body.address, user_id: req.user.id};
+    var newOrder = {food_id: req.body.food_id, quantity : req.body.quantity, name: req.body.name, mobile_no: req.body.mobile_no, address: req.body.address, user_id: req.user.id, payment: req.body.payment};
     connection.query('INSERT INTO order_details SET ?', newOrder, (err, results) => {
         if (err) throw err;
         res.redirect("/orders");
     });
 });
-
-// app.get('/orderdetails', (req, res) => {
-//     res.render('orderdetails');
-// });
-
-// app.post('/index', isloggedin, (req, res) => {
-    // var newOrder = {quantity : req.body.quantity, name: req.body.name, mobile_no: req.body.mobile_no, address: req.body.address};
-//     const q = 'INSERT INTO order_details(quantity, name, mobile_no, address) SET ?';
-    // connection.query(q, newOrder, (err, results) => {
-    //     if (err) throw err;
-    //     res.render("orderdetails");
-    // });
-// });
-
-// Order Route
-
-// app.get('/order/new', isloggedin, (req, res) => {
-//         res.render("order");
-// });
-
-// app.post('/order/:id/:user', isloggedin, (req, res) => {
-//     var newOrder = {quantity : req.body.quantity, user_id: currentUser.id, food_id: req.params.id, name: req.body.name, mobile_no: req.body.mobile_no, address: req.body.address};
-//     const q = 'INSERT INTO order_details(quantity, user_id, food_id, name, mobile_no, address) SET ?';
-//     connection.query(q, newOrder, (err, results) => {
-//         if (err) throw err;
-//         res.render("orderdetails");
-//     });
-// });
-
-// Order Placed Route
-// app.get("/orderdetails/:id", isloggedin, (req, res) => {
-//     const q = "SELECT * FROM order_details;";
-//     connection.query(q, function(err, results) {
-//         if (err) throw err;
-//         res.render("orderdetails", { orders: results });
-//     });
-// });
 
 // Authentication Routes
 
@@ -226,7 +192,8 @@ app.post("/login", function(req, res, next) {
 
 app.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    req.flash("success", "Logged you out!");
+    res.redirect('/menu');
 })
 
 
@@ -236,6 +203,7 @@ function isloggedin(req, res, next){
     if(req.isAuthenticated()){
         next();
     }else{
+        req.flash('error', 'You need to be logged in to do that');
         res.redirect('/login');
     }
 }

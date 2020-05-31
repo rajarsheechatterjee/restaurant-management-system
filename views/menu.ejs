@@ -1,5 +1,5 @@
 <%- include("./partials/header") %>
-<div class="container">
+<div class="container mb-5">
     <header class = "jumbotron">
         <div class="container">
             <h1>Welcome to Food Ordering App</h1>
@@ -9,7 +9,7 @@
     </header>
 
     <div class="row">  
-        <div class="col-lg-12">
+        <div class="col-lg-12 mb-4">
             <h3 style="margin-bottom: 15px;">Our most popular dishes</h3>
         </div>
     </div>
@@ -17,11 +17,12 @@
     <div class="row" style="display: flex; flex-wrap: wrap;">
     <%items.forEach(function(item){%>
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="card mb-4" style="width: 18rem;">
                 <img class="card-img-top" style="height: 180px;" src="<%= item.image_url %>" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title"><%= item.name %></h5>
-                    <p class="card-text"><%= item.body %></p>
+                    <h5 class="card-title"><%= item.item_name %></h5>
+                    <p class="card-text"><%= item.body.substring(0,140) %>...</p>
+                    <h6 style="display: inline;">Price:</h6> Rs <%= item.price %>
                 </div>
             </div>
         </div>        
