@@ -42,12 +42,6 @@ CREATE TABLE reviews(
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
- INSERT INTO users(username,password)
- VALUES(
-     "shadow",
-     "$2y$10$.DGDxDCIbcpjUqcXeC5qPe8vfNQimvDp64W8FiBjvwfyGQEHjgpVa"
- );
-
 INSERT INTO food_items(item_name, image_url, body, price)
 VALUES
 (
