@@ -8,8 +8,8 @@
             <div class="card mb-4" style="width: 18rem;">
                 <img class="card-img-top" style="height: 180px;" src="<%= order.image_url %>" alt="Food Item Image">
                 <div class="card-body">
-                  <h5 class="card-title"><%= order.item_name %></h5>
-                  <h6 class="card-subtitle mb-2 text-muted"><%= order.placed_at.toDateString() %> at <%= order.placed_at.toTimeString().substring(0,8) %></h6>
+                  <h5 class="card-title mb-1"><%= order.item_name %></h5>
+                    <p class="card-text"><small class="text-muted">Ordered on <%= order.placed_at.toDateString() %> at <%= order.placed_at.toTimeString().substring(0,8) %></small></p>
                   <p class="card-text">
                       <h6 style="display: inline;">Total Amount:</h6> Rs. <%= order.quantity * order.price %> <br>
                       <h6 style="display: inline;">Quantity:</h6> <%= order.quantity %> <br>

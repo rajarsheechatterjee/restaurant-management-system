@@ -34,6 +34,14 @@ CREATE TABLE order_details(
     FOREIGN KEY(food_id) REFERENCES food_items(id)
 );
 
+CREATE TABLE reviews(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    review MEDIUMTEXT NOT NULL,
+    reviewed_at TIMESTAMP DEFAULT NOW(),
+    user_id INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
  INSERT INTO users(username,password)
  VALUES(
      "shadow",

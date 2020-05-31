@@ -164,6 +164,30 @@ app.post('/orders', isloggedin,(req, res) => {
     });
 });
 
+// Reviews Routes
+
+app.get('/reviews', (req, res) => {
+    const q = 'SELECT r.review, r.reviewed_at,u.username FROM reviews as r INNER JOIN users AS u ON r.user_id = u.id;';
+    connection.query(q, (err, results) => {
+        if (err) throw err;
+        res.render("reviews", { reviews: results });
+    });
+});
+
+// New Review Route
+
+app.get('/reviews/new', isloggedin,(req, res) => {
+    res.render('newreview');
+});
+
+app.post('/reviews', (req, res) => {
+    var newReview = {review: req.body.review, user_id: req.user.id};
+    connection.query('INSERT INTO reviews SET ?', newReview, (err, results) => {
+        if (err) throw err;
+        res.redirect("/reviews");
+    });
+});
+
 // Authentication Routes
 
 app.get("/register", (req, res) => {
@@ -194,7 +218,7 @@ app.get('/logout', function(req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
     res.redirect('/menu');
-})
+});
 
 
 // Middleware
