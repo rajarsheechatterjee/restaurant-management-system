@@ -26,7 +26,7 @@ CREATE TABLE order_details(
     name VARCHAR(255) NOT NULL,
     payment VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    mobile_no INT NOT NULL,
+    mobile_no VARCHAR(20) NOT NULL,
     user_id INT NOT NULL,
     food_id INT NOT NULL,
     placed_at TIMESTAMP DEFAULT NOW(),

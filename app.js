@@ -1,16 +1,14 @@
-require('dotenv').config();
-
-const express = require("express"),
-      app = express(),
-      session = require('express-session'),
-      bodyParser = require("body-parser"),
+const express          = require("express"),
+      app              = express(),
+      session          = require('express-session'),
+      bodyParser       = require("body-parser"),
       expressSanitizer = require("express-sanitizer"),
-      methodOverride = require("method-override"),
-      mysql = require("mysql"),
-      bcrypt = require('bcrypt-nodejs'),
-      passport = require("passport"),
-      flash = require("connect-flash"),
-      LocalStrategy = require("passport-local");
+      methodOverride   = require("method-override"),
+      mysql            = require("mysql"),
+      bcrypt           = require('bcrypt-nodejs'),
+      passport         = require("passport"),
+      flash            = require("connect-flash"),
+      LocalStrategy    = require("passport-local");
 
 // App Config
 app.set("view engine", "ejs");
@@ -71,7 +69,7 @@ passport.use(
                 if (err)
                     return done(err);
                 if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That is already taken'));
+                    return done(null, false, req.flash('signupMessage', 'That username is already taken'));
                 } else {
                     const newUserMysql = {
                         username: username,
@@ -136,7 +134,6 @@ app.get("/menu", (req, res) => {
 // Previous Orders Route
 
 app.get('/orders', isloggedin,(req, res) => {
-    // const q = 'SELECT order_details.payment, food_items.item_name, food_items.image_url, order_details.name, order_details.quantity,order_details.mobile_no, order_details.address, order_details.placed_at FROM food_items INNER JOIN order_details ON food_items.id = order_details.food_id;';
     const q = "SELECT f.item_name, f.image_url, f.price, o.quantity, o.name, o.payment, o.address, o.placed_at, o.mobile_no FROM order_details AS o INNER JOIN food_items AS f ON o.food_id = f.id INNER JOIN users AS u ON o.user_id = u.id WHERE u.id =" + req.user.id + ";";
     connection.query(q, function(err, results) {
         if (err) throw err;
@@ -174,11 +171,13 @@ app.get('/reviews', (req, res) => {
     });
 });
 
-// New Review Route
+// New Review Form
 
 app.get('/reviews/new', isloggedin,(req, res) => {
     res.render('newreview');
 });
+
+// New Review Route
 
 app.post('/reviews', (req, res) => {
     var newReview = {review: req.body.review, user_id: req.user.id};
