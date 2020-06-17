@@ -73,4 +73,16 @@ VALUES
     "https://maunikagowardhan.co.uk/wp-content/uploads/2017/11/Black-Dal-Makhani.jpg",
     "Dal Makhani or Dal Makhni is a dish originating from the Punjab region of the Indian subcontinent. The primary ingredients are whole black lentil, red kidney beans, butter and cream. The dish gets its richness from the use of cream or butter, but it can also be prepared with yogurt, milk or no dairy",
     "250"
+),
+(
+    "Shahi Paneer",
+    "https://i.ytimg.com/vi/B3H2RDSW9V8/maxresdefault.jpg",
+    "Shahi paneer is a preparation of paneer, native to the Indian subcontinent, consisting of a thick gravy of cream, tomatoes and Indian spices.",
+    "220"
+),
+(
+    "Tandoori Roti",
+    "https://i.ytimg.com/vi/N2aVgU9kiNQ/maxresdefault.jpg",
+    "Tandoori Roti is a round flatbread native to the Indian subcontinent made from stoneground wholemeal flour, traditionally known as atta, and water that is combined into a dough. Roti is consumed in many countries worldwide. Its defining characteristic is that it is unleavened.",
+    "30"
 );
